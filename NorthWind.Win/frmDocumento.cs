@@ -34,5 +34,21 @@ namespace NorthWind.Win
             txtruc.Text = e.Ruc;
             otmpCliente = e;
         }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            frmProducto oFrmProducto = new frmProducto();
+            oFrmProducto.onProductoSeleccionado += new EventHandler<TbProductoBE>(
+                oFrmProducto_OnProductoSeleccionado);
+            oFrmProducto.Show();
+        }
+
+        TbProductoBE otmpProducto;
+        void oFrmProducto_OnProductoSeleccionado(object sender, TbProductoBE e)
+        {
+            txtproducto.Text = e.Descripcion;
+            txtprecio.Text = e.Precio;
+            otmpProducto = e;
+        }
     }
 }
