@@ -18,7 +18,7 @@ namespace NorthWind.Entity
             //Para que se muestre en la tabla se hace la sobreescripcion
 
         }
-
+        /*
         public TbProductoBE(
             string  codproducto,
             string  descripcion , 
@@ -39,6 +39,6 @@ namespace NorthWind.Entity
             
             return productos;
 
-        }
+        }*/
     }
 }

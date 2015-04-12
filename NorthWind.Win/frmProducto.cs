@@ -8,6 +8,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using NorthWind.DAO;
 
 namespace NorthWind.Win
 {
@@ -23,7 +24,8 @@ namespace NorthWind.Win
 
         private void frmProducto_Load(object sender, EventArgs e)
         {
-            Lista = TbProductoBE.SelectAll();
+            //Lista = TbProductoBE.SelectAll();
+            Lista = TbProductoDAO.SelectAll();
             this.TbProductobindingSource.DataSource = Lista;
             this.dataGridView1.SelectionMode =
                 DataGridViewSelectionMode.FullRowSelect;
