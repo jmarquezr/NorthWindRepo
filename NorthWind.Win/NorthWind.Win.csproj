@@ -83,6 +83,7 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <None Include="Properties\DataSources\NorthWind.Entity.DocumentoBE.datasource" />
     <None Include="Properties\DataSources\NorthWind.Entity.TbClienteBE.datasource" />
     <None Include="Properties\DataSources\NorthWind.Entity.TbProductoBE.datasource" />
     <None Include="Properties\Settings.settings">
