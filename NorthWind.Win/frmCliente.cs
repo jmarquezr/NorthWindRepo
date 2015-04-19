@@ -58,5 +58,15 @@ namespace NorthWind.Win
 
         }
 
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            var query = from c in Lista
+                        where c.Nombre.StartsWith(txtNombreCliente.Text)
+                        select c;
+            this.TbClientebindingSource.DataSource = query;
+            this.dataGridView1.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+        }
+
     }
 }

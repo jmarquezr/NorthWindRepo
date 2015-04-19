@@ -56,5 +56,16 @@ namespace NorthWind.Win
                 AgregarProductoFactura();
             }
         }
+
+        private void textBox1_TextChanged(object sender, EventArgs e)
+        {
+            var query = from c in Lista
+                        where c.Descripcion.StartsWith(txtDescripcion.Text)
+                        select c;
+            this.TbProductobindingSource.DataSource = query;
+            this.dataGridView1.SelectionMode =
+                DataGridViewSelectionMode.FullRowSelect;
+        }
+
     }
 }

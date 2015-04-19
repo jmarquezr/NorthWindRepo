@@ -90,7 +90,7 @@ namespace NorthWind.Win
             oDocumento.Detalle = oFacturaBL.GetDetalle();
             //Guardar en la Base de Datos
             TbDocumentoDAO documento=new TbDocumentoDAO();
-            if (documento.GuardarDocumento(oDocumento) == eEstadoProceso.Correcto)
+            if (documento.GuardarDocumentoTVP(oDocumento) == eEstadoProceso.Correcto)
             {
                 MessageBox.Show("Documento Guardado");
             }
