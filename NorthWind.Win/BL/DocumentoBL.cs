@@ -25,9 +25,27 @@ namespace NorthWind.Win.BL
         public void AgregarDetalle(ItemBE oItem)
         {
             SubTotal += oItem.Total;
-            oItem.Item = oDetalle.Count + 1;
+
+            ItemBE iProducto = null;
+
+            if (oDetalle.Count>0)
+            {
+                iProducto = (from item in oDetalle.ToArray()
+                                    where item.Producto.CodProducto == oItem.Producto.CodProducto
+                                    select item).SingleOrDefault();
+            }
+
+            if (iProducto != null)
+            {
+                iProducto.Cantidad += oItem.Cantidad;
+            }
+            else 
+            {
+                oItem.Item = oDetalle.Count + 1;
+                oDetalle.Add(oItem);
+            }
             //La cantidad de productos que se va llenando
-            oDetalle.Add(oItem);
+            
         }
 
         public List<ItemBE> GetDetalle()

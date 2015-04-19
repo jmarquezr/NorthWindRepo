@@ -58,7 +58,7 @@ namespace NorthWind.Win
             //Boton Agregar a factura
             oFacturaBL.AgregarDetalle(new ItemBE(){
                 Cantidad=Convert.ToInt32(txtcantidad.Text),
-                Precio=Convert.ToInt32(txtprecio.Text),
+                Precio=Convert.ToDecimal(txtprecio.Text),
                 Producto=otmpProducto
             });
             //Actualizar DataGrid
