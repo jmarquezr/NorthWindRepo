@@ -17,6 +17,7 @@ namespace NorthWind.Win
     {
         public event EventHandler<TbProductoBE> onProductoSeleccionado;
         List<TbProductoBE> Lista = new List<TbProductoBE>();
+        List<TbCategoriaBE> ListaCategoria = new List<TbCategoriaBE>();
         public frmProducto()
         {
             InitializeComponent();
@@ -25,11 +26,24 @@ namespace NorthWind.Win
         private void frmProducto_Load(object sender, EventArgs e)
         {
             //Lista = TbProductoBE.SelectAll();
+            //Lista = TbProductoDAO.SelectAll();
+            //this.TbProductobindingSource.DataSource = Lista;
+            //this.dataGridView1.SelectionMode =
+            //    DataGridViewSelectionMode.FullRowSelect;
             Lista = TbProductoDAO.SelectAll();
-            this.TbProductobindingSource.DataSource = Lista;
+            ListaCategoria = TbCategoriaDAO.SelectAll();
+
+            var ProCat = (from pro in Lista
+                          join
+                              cat in ListaCategoria on Convert.ToInt32(pro.Categoria) equals cat.CodCategoria
+                          select new { pro.CodProducto, pro.Descripcion, pro.Precio, cat.NomCategoria }).ToArray();
+
+            //this.TbProductobindingSource.DataSource = Lista;
+            this.dataGridView1.DataSource = null;
+            this.dataGridView1.DataSource = ProCat;
+
             this.dataGridView1.SelectionMode =
                 DataGridViewSelectionMode.FullRowSelect;
-
         }
 
         private void AgregarProductoFactura()
@@ -59,12 +73,25 @@ namespace NorthWind.Win
 
         private void textBox1_TextChanged(object sender, EventArgs e)
         {
-            var query = from c in Lista
-                        where c.Descripcion.StartsWith(txtDescripcion.Text)
-                        select c;
-            this.TbProductobindingSource.DataSource = query;
-            this.dataGridView1.SelectionMode =
-                DataGridViewSelectionMode.FullRowSelect;
+            //var query = from c in Lista
+            //            where c.Descripcion.StartsWith(txtDescripcion.Text)
+            //            select c;
+            //this.TbProductobindingSource.DataSource = query;
+            //this.dataGridView1.SelectionMode =
+            //    DataGridViewSelectionMode.FullRowSelect;
+            Lista = TbProductoDAO.SelectAll();
+            ListaCategoria = TbCategoriaDAO.SelectAll();
+
+            var ProCat = (from pro in Lista
+                          join cat in ListaCategoria on Convert.ToInt32(pro.Categoria) equals cat.CodCategoria
+                          select new { pro.CodProducto, pro.Descripcion, pro.Precio, cat.NomCategoria }).ToArray();
+
+            var query = (from p in ProCat
+                         where p.Descripcion.ToUpper().Trim().Contains(txtDescripcion.Text.ToUpper().Trim())
+                         select new { p.CodProducto, p.Descripcion, p.Precio, p.NomCategoria }).ToArray();
+
+            this.dataGridView1.DataSource = null;
+            this.dataGridView1.DataSource = query;
         }
 
     }

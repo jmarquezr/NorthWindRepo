@@ -19,9 +19,10 @@ namespace NorthWind.DAO
             string sql = "Select CodProducto,Descripcion,Precio from TbProducto";
             using (SqlConnection connection = new SqlConnection(ConnectionString))
             {
-                connection.Open();
+                
                 using (SqlCommand command = new SqlCommand(sql, connection))
                 {
+                    connection.Open();
                     command.CommandType = CommandType.Text;
                     List<TbProductoBE> Productos = new List<TbProductoBE>();
                     using (SqlDataReader reader = command.ExecuteReader())
@@ -37,8 +38,11 @@ namespace NorthWind.DAO
                         }
 
                     }
+                    connection.Close();
                     return Productos;
                 }
+                
+                
             }
         }
     }
