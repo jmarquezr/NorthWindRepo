@@ -1,4 +1,5 @@
-﻿using NorthWind.Entity;
+﻿using NorthWind.DAO;
+using NorthWind.Entity;
 using NorthWind.Win.BL;
 using System;
 using System.Collections.Generic;
@@ -70,6 +71,29 @@ namespace NorthWind.Win
             txttotal.Text = oFacturaBL.Total.ToString();
 
 
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+            //Guardar Documento en la Base de datos
+            DocumentoBE oDocumento = new DocumentoBE();
+            //Guardar la cabecera
+            CabDocumentoBE oCabecera = new CabDocumentoBE();
+            oCabecera.Cliente = otmpCliente;
+            oCabecera.FechaHora = DateTime.Now;
+            oCabecera.IGV = oFacturaBL.IGV;
+            oCabecera.SubTotal = oFacturaBL.SubTotal;
+            oCabecera.Total = oFacturaBL.Total;
+            //Agregamos la cabecera al documento
+            oDocumento.Cabecera = oCabecera;
+            //Agregamos el detalle al documento
+            oDocumento.Detalle = oFacturaBL.GetDetalle();
+            //Guardar en la Base de Datos
+            TbDocumentoDAO documento=new TbDocumentoDAO();
+            if (documento.GuardarDocumento(oDocumento) == eEstadoProceso.Correcto)
+            {
+                MessageBox.Show("Documento Guardado");
+            }
         }
     }
 }
